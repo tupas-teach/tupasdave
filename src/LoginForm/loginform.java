@@ -5,6 +5,7 @@
  */
 package LoginForm;
 
+import RegisterForm.Register;
 import admin.admindashboard;
 import admin.userform;
 import config.Session;
@@ -31,7 +32,7 @@ public class loginform extends javax.swing.JFrame {
     public static boolean loginAcc(String username, String password){
         dbConnector connector = new dbConnector();
       try{
-            String query = "SELECTED *FROM tbl_register WHEER un = '" +username + "'AND pass = '"+ password +"'";
+            String query = "SELECTED *FROM tbl_user WHEER username = '" +username+ "'AND pass = '"+ password +"'";
                   
             ResultSet resultSet = connector.getData(query);
             if(resultSet.next()){
@@ -40,11 +41,13 @@ public class loginform extends javax.swing.JFrame {
                 Session sess = Session.getInstance();
                 sess.setId(resultSet.getInt("id"));
                  sess.setFn(resultSet.getString("fn"));
-                 sess.setLn(resultSet.getString("ln"));
-                 sess.setUn(resultSet.getString("un"));
-                 sess.setType(resultSet.getString("type"));
-                 sess.setStatus(resultSet.getString("status"));
-                 sess.setEmail(resultSet.getString("email"));
+                 sess.setLn(resultSet.getString("middle"));
+                 sess.setUn(resultSet.getString("ln"));
+                 sess.setType(resultSet.getString("username"));
+                 sess.setStatus(resultSet.getString("type"));
+                 sess.setEmail(resultSet.getString("gender"));
+                   sess.setEmail(resultSet.getString("email"));
+                 
                  return true;
             }else{
                 return false;
@@ -65,7 +68,7 @@ public class loginform extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        un = new javax.swing.JTextField();
+        username = new javax.swing.JTextField();
         pass = new javax.swing.JPasswordField();
         cancel = new javax.swing.JButton();
         login = new javax.swing.JButton();
@@ -107,6 +110,11 @@ public class loginform extends javax.swing.JFrame {
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("click her create account?");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -121,7 +129,7 @@ public class loginform extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(un)))
+                        .addComponent(username)))
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(145, 145, 145)
@@ -139,7 +147,7 @@ public class loginform extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(un, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(username, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -162,6 +170,7 @@ public class loginform extends javax.swing.JFrame {
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 551, 421));
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
@@ -173,11 +182,11 @@ public class loginform extends javax.swing.JFrame {
     }//GEN-LAST:event_cancelActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-      if(loginAcc(un.getText(),pass.getText())){
-          if(!status.equals("Active")){
+      if(loginAcc(username.getText(),pass.getText())){
+          if(!status.equals("active")){
               JOptionPane.showMessageDialog(null,"In-Active Account, Contact the Admin!");
           }else{                                       
-          if(type.equals("Admin")){
+          if(type.equals("admin")){
               JOptionPane.showMessageDialog(null,"Login succesfully!");
             admindashboard  adb = new  admindashboard();
           adb.setVisible(true);
@@ -198,6 +207,12 @@ public class loginform extends javax.swing.JFrame {
     
     
     }//GEN-LAST:event_loginActionPerformed
+
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+      Register r = new Register();
+      r.setVisible(true);
+               this.dispose(); 
+    }//GEN-LAST:event_jLabel4MouseClicked
 
     /**
      * @param args the command line arguments
@@ -243,7 +258,7 @@ public class loginform extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton login;
     private javax.swing.JPasswordField pass;
-    private javax.swing.JTextField un;
+    private javax.swing.JTextField username;
     // End of variables declaration//GEN-END:variables
 
 }

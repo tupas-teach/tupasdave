@@ -15,7 +15,7 @@ public class Session {
     private int id;
     private String fn;
     private String ln;
-    private String un;
+    private String username;
     private String type;
     private String status;
     private String email;
@@ -59,12 +59,12 @@ public class Session {
         this.ln = ln;
     }
 
-    public String getUn() {
-        return un;
+    public String getUsername() {
+        return username;
     }
 
     public void setUn(String un) {
-        this.un = un;
+        this.username = username;
     }
 
     public String getType() {
