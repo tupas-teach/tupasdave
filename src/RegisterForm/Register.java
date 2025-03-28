@@ -7,6 +7,8 @@ package RegisterForm;
 
 import LoginForm.loginform;
 import config.dbConnector;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -21,7 +23,31 @@ public class Register extends javax.swing.JFrame {
     public Register() {
         initComponents();
     }
+  public static String  username;
+   public boolean duplicateCheck() {
 
+    dbConnector dbc = new dbConnector();
+
+    try {
+        String query = "SELECT * FROM user WHERE username = '" + un.getText() + "'"; 
+
+        ResultSet resultSet = dbc.getData(query);
+
+        if (resultSet.next()) {
+            username = resultSet.getString("r_username");
+            if (un.equals(un.getText())) {
+                JOptionPane.showMessageDialog(null, "Username is already used!");
+                un.setText("");
+            }
+            return true;
+        } else {
+            return false;
+        }
+    } catch (SQLException ex) {
+        System.out.println("" + ex);
+        return false;
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

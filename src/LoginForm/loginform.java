@@ -157,7 +157,7 @@ public class loginform extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addContainerGap())
         );
@@ -174,35 +174,36 @@ public class loginform extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_passActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-        // TODO add your handling code here:
+       System.exit(0);
     }//GEN-LAST:event_cancelActionPerformed
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
-      if(loginAcc(username.getText(),pass.getText())){
-          if(!status.equals("active")){
-              JOptionPane.showMessageDialog(null,"In-Active Account, Contact the Admin!");
-          }else{                                       
-          if(type.equals("admin")){
-              JOptionPane.showMessageDialog(null,"Login succesfully!");
-            admindashboard  adb = new  admindashboard();
-          adb.setVisible(true);
-          this.dispose();
-           }else if(type.equals("User")){
-               JOptionPane.showMessageDialog(null,"Login succesfully!");
-               userform uf = new userform();
-               uf.setVisible(true);
-               this.dispose();             
-          }else{
-           JOptionPane.showMessageDialog(null,"No Account type found, Contact the admin!");
-           }
-    }                                        
-    }else{
-    JOptionPane.showMessageDialog(null,"Invalid Acount!");
-}
+       if(loginAcc(username.getText(),pass.getText())){
+            if(!status.equals("Active")){
+                JOptionPane.showMessageDialog(null, "In-Active Account, Contact the Admin!");
+            }else{
+                if(type.equals("Admin")){
+                    JOptionPane.showMessageDialog(null, "Login Success!");
+                    admindashboard ads = new admindashboard();
+                    ads.setVisible(true);
+                    this.dispose();
+                }else if(type.equals("Resident")){
+                    JOptionPane.showMessageDialog(null, "Login Success!");
+                    userform  uf= new userform();
+                    uf.setVisible(true);
+                    this.dispose();
+                }else{
+                    JOptionPane.showMessageDialog(null, "No account type found, Contact the Admin!");
+                }
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Invalid Account!");
+        }
+
     
     
     
