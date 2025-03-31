@@ -36,10 +36,44 @@ public boolean duplicateCheck(){
             if(resultSet.next()){
                 username = resultSet.getString("username");
                         if(username.equals(un.getText())){
+                            JOptionPane.showMessageDialog(null, "Username is Already Active!");
                             un.setText("");
                         }
                         email = resultSet.getString("email");
                                 if(email.equals(em.getText())){
+                                    JOptionPane.showMessageDialog(null, "Email is Already Used!");
+                                    em.setText("");
+                                }
+                                return true;
+                     }else{
+                return false;
+                
+        
+    }
+        } catch (SQLException ex) {
+            Logger.getLogger(createuserform.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            return false;
+                }
+    public boolean UpdateCheck(){
+    dbConnector dbc = new dbConnector();
+    try{
+        String query = "SELECT * FROM tbl_user WHERE (username='"+un.getText()+"' OR email ='"+em.getText()+"')AND id=!'"+uid.getText()+"'";
+        ResultSet resultSet = dbc.getData(query);
+        try {
+            resultSet = dbc.getData(query);
+        } catch (SQLException ex) {
+            Logger.getLogger(createuserform.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            if(resultSet.next()){
+                username = resultSet.getString("username");
+                        if(username.equals(un.getText())){
+                            JOptionPane.showMessageDialog(null, "Username is Already Active!");
+                            un.setText("");
+                        }
+                        email = resultSet.getString("email");
+                                if(email.equals(em.getText())){
+                                    JOptionPane.showMessageDialog(null, "Email is Already Used!");
                                     em.setText("");
                                 }
                                 return true;
@@ -150,7 +184,6 @@ public boolean duplicateCheck(){
         update.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         update.setText("UPDATE");
         update.setDoubleBuffered(true);
-        update.setEnabled(false);
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateActionPerformed(evt);
@@ -321,18 +354,23 @@ public boolean duplicateCheck(){
          }else if(pass.getText().length()<8){
              JOptionPane.showMessageDialog(null, "Password character should be 8 above!");
              pass.setText("");
-         }else if(duplicateCheck()){
+         }else if(UpdateCheck()){
              System.out.println("Duplicate Exist");
          }else{
              
          }
           dbConnector dbc = new dbConnector();
        dbc.insertData(" UPDATE tbl_user SET fn = '"
-                +fn.getText()+"', middle ='"+mdn.getText()+"',ln = '"+ln.getText()+"',ln ='"+ln.getText()+"',email = '"+un.getText()+"', pass ='"+pass.getText()+"',gender = '"+gender.getSelectedItem()+"',type ='"+type.getSelectedItem()
+                +fn.getText()+"', middle ='"+mdn.getText()+"',ln = '"+ln.getText()+"',ln ='"+ln.getText()+"',email = '"+un.getText()+"', pass ='"+pass.getText()+"',gender = '"+gender.getSelectedItem()+"',type ='"+type.getSelectedItem()+"',status='"+us.getSelectedItem()
                +"' WHERE id ='"+uid.getText()+"'");
-             
+             JOptionPane.showMessageDialog(null, "Updatec Successfuly!");
+            userform uf = new userform();
+             uf.setVisible(true);
+             this.dispose();
       
             
+      
+
        
                                          
     }//GEN-LAST:event_updateActionPerformed
@@ -416,7 +454,7 @@ public boolean duplicateCheck(){
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Add;
+    public javax.swing.JButton Add;
     public javax.swing.JTextField em;
     public javax.swing.JTextField fn;
     public javax.swing.JComboBox<String> gender;
@@ -443,7 +481,7 @@ public boolean duplicateCheck(){
     public javax.swing.JComboBox<String> type;
     public javax.swing.JTextField uid;
     public javax.swing.JTextField un;
-    private javax.swing.JButton update;
+    public javax.swing.JButton update;
     public javax.swing.JComboBox<String> us;
     // End of variables declaration//GEN-END:variables
 

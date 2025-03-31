@@ -45,7 +45,7 @@ public class Register extends javax.swing.JFrame {
                             un.setText("");
                         }
                         
-                               
+                           
                      }else{
                 return true;
                 

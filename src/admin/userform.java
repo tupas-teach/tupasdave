@@ -32,7 +32,7 @@ public class userform extends javax.swing.JFrame {
          public void displayData(){
         try{
             dbConnector dbc = new dbConnector();
-            ResultSet rs = dbc.getData("SELECT id,fn,ln,username,email FROM tbl_user");
+            ResultSet rs = dbc.getData("SELECT id,fn,email,status FROM tbl_user");
             table_name.setModel(DbUtils.resultSetToTableModel(rs));
             
         }catch(SQLException ex){
@@ -292,9 +292,10 @@ public class userform extends javax.swing.JFrame {
                   cuf.mdn.setText(""+rs.getString("middle"));
                     cuf.ln.setText(""+rs.getString("ln"));
                       cuf.un.setText(""+rs.getString("username"));
-                
-               cuf.setVisible(true);
-               this.dispose();
+                      cuf.Add.setEnabled(false);
+                      cuf.update.setEnabled(true);
+                      cuf.setVisible(true);
+                      this.dispose();
             }
             
             
