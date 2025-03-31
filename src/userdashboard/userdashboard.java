@@ -111,6 +111,11 @@ public class userdashboard extends javax.swing.JFrame {
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icon/group.png"))); // NOI18N
         jLabel5.setText("jLabel5");
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel5MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -242,8 +247,8 @@ public class userdashboard extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jLabel7MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel7MouseClicked
-        userform uf = new userform();
-        uf.setVisible(true);
+        userDetails ud = new userDetails();
+        ud.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_jLabel7MouseClicked
 
@@ -268,6 +273,12 @@ public class userdashboard extends javax.swing.JFrame {
        l.setVisible(true);
        this.dispose();
     }//GEN-LAST:event_jLabel2MouseClicked
+
+    private void jLabel5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MouseClicked
+  userform uf = new userform();
+        uf.setVisible(true);
+        this.dispose();       
+    }//GEN-LAST:event_jLabel5MouseClicked
 
     /**
      * @param args the command line arguments

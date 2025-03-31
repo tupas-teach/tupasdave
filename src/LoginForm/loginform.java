@@ -35,14 +35,11 @@ public class loginform extends javax.swing.JFrame {
     public static boolean loginAcc(String username, String password){
         dbConnector connector = new dbConnector();
       try{
-            String query = "SELECT *FROM tbl_user WHERE username = '" +username+ "'AND pass = '"+ password +"'";
-                  
+            String query = "SELECT *FROM tbl_user WHERE username = '" +username+ "'"; 
             ResultSet resultSet = connector.getData(query);
             if(resultSet.next()){
                 String hashedPass = resultSet.getString("pass");
                 String rehashedPass = passwordHasher.hashPassword(password);
-                System.out.println(""+hashedPass);
-                System.out.println(""+ rehashedPass);
                 if(hashedPass.equals(rehashedPass)){
                 status =resultSet.getString("status");
                 type =resultSet.getString("type");

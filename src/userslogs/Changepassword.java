@@ -166,7 +166,7 @@ public class Changepassword extends javax.swing.JFrame {
         dbConnector dbc = new dbConnector();
         Session sess = Session.getInstance();
         
-     String query = "SELECT * FROM user WHERE id = '" + sess.getId() + "'";
+     String query = "SELECT * FROM tbl_user WHERE id = '" + sess.getId() + "'";
     ResultSet rs = dbc.getData(query);
     if (rs.next()) {
         String olddbpass = rs.getString("pass");
@@ -179,7 +179,7 @@ public class Changepassword extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "New password cannot be the same as the old password!");
             }
             else{
-                dbc.updateData("UPDATE table_user SET pass = '" + newhash + "' WHERE id = '" + sess.getId() + "'");
+                dbc.updateData("UPDATE tbl_user SET pass = '" + newhash + "' WHERE id = '" + sess.getId() + "'");
                 JOptionPane.showMessageDialog(null, "Successfully Updated!");
                 loginform lg = new loginform();
                 lg.setVisible(true); 
