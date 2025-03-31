@@ -10,9 +10,12 @@ import admin.admindashboard;
 import admin.userform;
 import config.Session;
 import config.dbConnector;
+import config.passwordHasher;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
+import userdashboard.userdashboard;
 
 /**
  *
@@ -32,10 +35,15 @@ public class loginform extends javax.swing.JFrame {
     public static boolean loginAcc(String username, String password){
         dbConnector connector = new dbConnector();
       try{
-            String query = "SELECTED *FROM tbl_user WHEER username = '" +username+ "'AND pass = '"+ password +"'";
+            String query = "SELECT *FROM tbl_user WHERE username = '" +username+ "'AND pass = '"+ password +"'";
                   
             ResultSet resultSet = connector.getData(query);
             if(resultSet.next()){
+                String hashedPass = resultSet.getString("pass");
+                String rehashedPass = passwordHasher.hashPassword(password);
+                System.out.println(""+hashedPass);
+                System.out.println(""+ rehashedPass);
+                if(hashedPass.equals(rehashedPass)){
                 status =resultSet.getString("status");
                 type =resultSet.getString("type");
                 Session sess = Session.getInstance();
@@ -44,17 +52,22 @@ public class loginform extends javax.swing.JFrame {
                  sess.setLn(resultSet.getString("middle"));
                  sess.setUn(resultSet.getString("ln"));
                  sess.setType(resultSet.getString("username"));
-                 sess.setStatus(resultSet.getString("type"));
                  sess.setEmail(resultSet.getString("gender"));
                    sess.setEmail(resultSet.getString("email"));
+                  System.out.println(""+sess.getId());
                  
                  return true;
             }else{
                 return false;
+                }
+                        
                 
+            }else{
+                return false;
             }
             
-        }catch (SQLException ex){
+        }catch (SQLException | NoSuchAlgorithmException ex){
+            System.out.println(""+ex);
             
         }
         return false;
@@ -157,7 +170,7 @@ public class loginform extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cancel, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(login, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel4)
                 .addContainerGap())
         );
@@ -183,19 +196,19 @@ public class loginform extends javax.swing.JFrame {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
        if(loginAcc(username.getText(),pass.getText())){
-            if(!status.equals("Active")){
+            if(!status.equals("active")){
                 JOptionPane.showMessageDialog(null, "In-Active Account, Contact the Admin!");
             }else{
-                if(type.equals("Admin")){
+                if(type.equals("admin")){
                     JOptionPane.showMessageDialog(null, "Login Success!");
                     admindashboard ads = new admindashboard();
                     ads.setVisible(true);
                     this.dispose();
-                }else if(type.equals("Resident")){
+                }else if(type.equals("user")){
                     JOptionPane.showMessageDialog(null, "Login Success!");
-                    userform  uf= new userform();
-                    uf.setVisible(true);
-                    this.dispose();
+                   userdashboard ud = new userdashboard();
+                   ud.setVisible(true);
+                   this.dispose();
                 }else{
                     JOptionPane.showMessageDialog(null, "No account type found, Contact the Admin!");
                 }

@@ -40,9 +40,9 @@ public class Changepassword extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        newpass = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
-        jPasswordField2 = new javax.swing.JPasswordField();
+        oldpass = new javax.swing.JPasswordField();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
@@ -62,10 +62,9 @@ public class Changepassword extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Type Old Password");
 
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.addActionListener(new java.awt.event.ActionListener() {
+        newpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jPasswordField1ActionPerformed(evt);
+                newpassActionPerformed(evt);
             }
         });
 
@@ -111,12 +110,12 @@ public class Changepassword extends javax.swing.JFrame {
                                     .addComponent(jButton2))
                                 .addGroup(jPanel1Layout.createSequentialGroup()
                                     .addGap(10, 10, 10)
-                                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addComponent(newpass, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(24, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(35, 35, 35)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(oldpass, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(109, Short.MAX_VALUE)))
         );
         jPanel1Layout.setVerticalGroup(
@@ -131,16 +130,16 @@ public class Changepassword extends javax.swing.JFrame {
                 .addGap(79, 79, 79)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(newpass, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel1Layout.createSequentialGroup()
                     .addGap(79, 79, 79)
-                    .addComponent(jPasswordField2, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(oldpass, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addContainerGap(168, Short.MAX_VALUE)))
         );
 
@@ -153,18 +152,15 @@ public class Changepassword extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jPasswordField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jPasswordField1ActionPerformed
+    private void newpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_newpassActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jPasswordField1ActionPerformed
+    }//GEN-LAST:event_newpassActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-         loginform lf = new loginform();
-        JOptionPane.showMessageDialog(null, "Logout Success!");
-        lf.setVisible(true);
-        this.dispose();
+        
                         
     }//GEN-LAST:event_jButton1ActionPerformed
-
+   
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
      try{
         dbConnector dbc = new dbConnector();
@@ -183,7 +179,7 @@ public class Changepassword extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "New password cannot be the same as the old password!");
             }
             else{
-                dbc.updateData("UPDATE user SET r_password = '" + newhash + "' WHERE r_id = '" + sess.getId() + "'");
+                dbc.updateData("UPDATE table_user SET pass = '" + newhash + "' WHERE id = '" + sess.getId() + "'");
                 JOptionPane.showMessageDialog(null, "Successfully Updated!");
                 loginform lg = new loginform();
                 lg.setVisible(true); 
@@ -194,7 +190,7 @@ public class Changepassword extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Old Password is Incorrect!");
         }
     }
-} catch (SQLException ex) {
+} catch (SQLException  | NoSuchAlgorithmException ex) {
     System.out.println("" + ex);
 }
                                             
@@ -244,7 +240,7 @@ public class Changepassword extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JPasswordField jPasswordField2;
+    private javax.swing.JPasswordField newpass;
+    private javax.swing.JPasswordField oldpass;
     // End of variables declaration//GEN-END:variables
 }

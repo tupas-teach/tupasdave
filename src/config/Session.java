@@ -14,11 +14,13 @@ public class Session {
      private static Session instance;
     private int id;
     private String fn;
+    private String middle;
     private String ln;
     private String username;
     private String type;
-    private String status;
+      private String gender;
     private String email;
+    private String status;
     private Session(){
     
 }
@@ -50,7 +52,12 @@ public class Session {
     public void setFn(String fn) {
         this.fn = fn;
     }
-
+ public String getMiddle() {
+        return middle;
+    }
+  public void setMiddle(String middle) {
+        this.middle = middle;
+    }
     public String getLn() {
         return ln;
     }
@@ -63,7 +70,7 @@ public class Session {
         return username;
     }
 
-    public void setUn(String un) {
+    public void setUn(String username) {
         this.username = username;
     }
 
@@ -74,8 +81,12 @@ public class Session {
     public void setType(String type) {
         this.type = type;
     }
-    
-     
+    public String getGender() {
+      return gender;
+    }
+      public void setGender(String gender) {
+        this.gender = gender;
+      }
     public String getStatus() {
         return status;
     }

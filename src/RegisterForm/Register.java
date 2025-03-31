@@ -6,9 +6,14 @@
 package RegisterForm;
 
 import LoginForm.loginform;
+import admin.createuserform;
 import config.dbConnector;
+import config.passwordHasher;
+import java.security.NoSuchAlgorithmException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -17,37 +22,11 @@ import javax.swing.JOptionPane;
  */
 public class Register extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Register
-     */
+
+  
     public Register() {
         initComponents();
     }
-  public static String  username;
-   public boolean duplicateCheck() {
-
-    dbConnector dbc = new dbConnector();
-
-    try {
-        String query = "SELECT * FROM user WHERE username = '" + un.getText() + "'"; 
-
-        ResultSet resultSet = dbc.getData(query);
-
-        if (resultSet.next()) {
-            username = resultSet.getString("r_username");
-            if (un.equals(un.getText())) {
-                JOptionPane.showMessageDialog(null, "Username is already used!");
-                un.setText("");
-            }
-            return true;
-        } else {
-            return false;
-        }
-    } catch (SQLException ex) {
-        System.out.println("" + ex);
-        return false;
-    }
-}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -238,14 +217,15 @@ public class Register extends javax.swing.JFrame {
     }//GEN-LAST:event_emailActionPerformed
 
     private void registerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registerActionPerformed
-      if(fn.getText().isEmpty()&&middle.getText().isEmpty()&&ln.getText().isEmpty()&&email.getText().isEmpty()&&un.getText().isEmpty()&&pass.getText().isEmpty()){
+      if(fn.getText().isEmpty()&&middle.getText().isEmpty()&&ln.getText().isEmpty()&&em.getText().isEmpty()&&un.getText().isEmpty()&&pass.getText().isEmpty()){
         JOptionPane.showMessageDialog(null, "All fields are required!");
     }
       dbConnector dbc = new dbConnector();
-    
+      try{
+    String password = passwordHasher.hashPassword(pass.getText());
         dbc.insertData("INSERT INTO tbl_user(fn,middle,ln,username,pass,type,gender,email,status)"+
-                "VALUES('"+fn.getText()+"','"+middle.getText()+"','"+ln.getText()+"','"+un.getText()+"','"+pass.getText()+"','"+ty.getSelectedItem()+"','"+gender.getSelectedItem()+"','"+
-                email.getText()+"', 'Pending')");
+                "VALUES('"+fn.getText()+"','"+middle.getText()+"','"+ln.getText()+"','"+un.getText()+"','"+password+"','"+ty.getSelectedItem()+"','"+gender.getSelectedItem()+"','"+
+                em.getText()+"', 'Pending')");
                 
                         
          {
@@ -255,16 +235,19 @@ public class Register extends javax.swing.JFrame {
              this.dispose();
              
             
+         }
+         }catch(NoSuchAlgorithmException ex){
+             System.out.println(""+ex);
              
          }
                                           
     }//GEN-LAST:event_registerActionPerformed
-
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         fn.setText("");
       middle.setText("");
       ln.setText("");
-      email.setText("");
+      em.setText("");
       pass.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
